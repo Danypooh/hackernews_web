@@ -1,12 +1,12 @@
 build:
-  Danypooh:
+  danypooh:
     image: okteto.dev/danypooh:latest
 
 deploy:
   - okteto build # build the image with the latest code
   - kubectl apply -f manifests # create all the resources in kubernetes
 dev:
-  Danypooh:
+  danypooh:
     command: bash
     sync:
     - .:/hackernews
