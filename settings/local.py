@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'k@*-qm80&!9$s9f*n4-)ug^3i)g@o_fhd(5tzuby%k3$o^5pm8'
+SECRET_KEY = config("DEV_SECRET_KEY", default='')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'health_check',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,15 +79,20 @@ WSGI_APPLICATION = 'hackernews.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+DEV_DATABASE = config("DEV_DATABASE", default='')
+DEV_USER = config("DEV_USER", default='')
+DEV_PASSWORD = config("DEV_PASSWORD", default='')
+DEV_HOST = config("DEV_HOST", default='')
+DEV_PORT = config("DEV_PORT", default=5432)
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hackernews', #'bhkvrhxz'
-        'USER': 'postgres', #'bhkvrhxz',
-        'PASSWORD': 'AIfat', #'jZLX4MXoWAkyiCYLKr6CxfHMhwafU4Nb',
-        'HOST': 'localhost', #'heffalump.db.elephantsql.com',
-        'PORT': 5432,
+        'NAME': DEV_DATABASE, #'hackernews', #'bhkvrhxz'
+        'USER': DEV_USER, #'postgres', #'bhkvrhxz',
+        'PASSWORD': DEV_PASSWORD, #'AIfat', #'jZLX4MXoWAkyiCYLKr6CxfHMhwafU4Nb',
+        'HOST': DEV_HOST, #'localhost', #'heffalump.db.elephantsql.com',
+        'PORT': DEV_PORT, #5432,
 
     }
 }
